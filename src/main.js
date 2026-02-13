@@ -4,7 +4,7 @@ import { AppContainer } from 'react-hot-loader';
 import App from './app';
 import './index.less';
 
-//热更新实现
+//Implementasi hot reload
 const render = Component => {
     ReactDOM.render(
         <AppContainer>

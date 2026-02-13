@@ -30,7 +30,7 @@ const lessLoader = {
   loader: 'less-loader',
   options: {
     sourceMap: isDebug,
-    javascriptEnabled: true  // 支持内联JavaScript
+    javascriptEnabled: true  // Mendukung JavaScript inline
   }
 }
 
@@ -40,9 +40,9 @@ const lessConfig = {
   },
   plugins: [],
   optimization: {
-    minimizer: [new OptimizeCssAssetsPlugin({ // 使用 OptimizeCssAssetsPlugin 对css进行压缩
-      cssProcessor: require('cssnano'),   // css 压缩优化器
-      cssProcessorOptions: { discardComments: { removeAll: true } } // 去除所有注释
+    minimizer: [new OptimizeCssAssetsPlugin({ // Gunakan OptimizeCssAssetsPlugin untuk kompres CSS
+      cssProcessor: require('cssnano'),   // Optimizer kompresi CSS
+      cssProcessorOptions: { discardComments: { removeAll: true } } // Hapus semua komentar
     })]
   }
 };

@@ -23,27 +23,27 @@ export default class App extends React.Component {
 
     fullStyle = [
         `/*
-* Hi。宝贝！
-* 这么久了。还没和宝贝说过我的工作呢！
-* 我是个前端工程师。俗称程序员。网页相关。
-* 如这个页面。就是个什么也没有的网页。
-* 我的工作就是给这种空白的页面加点儿东西。
-* 嗯。说起来手机和电脑还得区分一下。
-* 你现在用的是。。。${isPc ? '电脑' : '手机'}
+* Hai, cica!
+* Sudah lama kan kamu tau tentang bidang aku
+* Aku seorang frontend engineer, biasa disebut programmer. Urusan web.
+* Seperti halaman ini, awalnya halaman kosong.
+* Jobdesk aku adalah menambahkan sesuatu ke halaman kosong seperti ini.
+* Oh iya, kita juga perlu bedakan HP dan komputer.
+* Kamu sekarang pakai ...${isPc ? 'komputer' : 'HP'}
 */
 
-/* 首先给所有元素加上过渡效果 */
+/* Pertama, beri efek transisi untuk semua elemen */
 * {
   -webkit-transition: all .5s;
   transition: all .5s;
 }
-/* 白色背景太单调了。来点背景 */
+/* Latar putih terlalu polos. Tambahkan latar */
 body, html {
   color: #fff;
   background-color: darkslategray;
 }
 
-/* 文字太近了 */
+/* Teks terlalu mepet */
 .styleEditor {
   overflow: auto;
   ${ isPc ? `width: 48vw;
@@ -55,14 +55,14 @@ body, html {
   padding: 10px;
 }
 
-/* 这些代码颜色都一样。加点儿高亮区别来 */
+/* Warna kode sama semua. Tambahkan highlight */
 .token.selector{ color: rgb(133,153,0) }
 .token.property{ color: rgb(187,137,0) }
 .token.punctuation{ color: yellow }
 .token.function{ color: rgb(42,161,152) }
 .token.comment{ color: rgb(177,177,177) }
 
-/* 加个 3D 效果 */
+/* Tambahkan efek 3D */
 html{
   perspective: 1000px;
   -webkit-perspective: 1000px;
@@ -77,11 +77,11 @@ html{
 }
 
 /*
-* 宝贝，今天教你写代码。
-* 用代码画一个爱心。
+* Oke cica, hari ini aku ajari kamu coding.
+* Menggambar hati dengan kode.
 */
 
-/* 首先，来一个画板 */
+/* Pertama, buat kanvas */
 .heartWrapper {
   ${ isPc ? `width: 48vw;
   height: 96vh;` : `width: 96vw;
@@ -98,7 +98,7 @@ html{
   -webkit-transform-origin: 50% 0% 0;`}
 }
 
-/* 画一个方块，当左心室和右心室 */
+/* Gambar kotak sebagai ventrikel kiri dan kanan */
 .heart {
   width: 100px;
   height: 100px;
@@ -111,7 +111,7 @@ html{
   transform: rotate(45deg);
 }
 
-/* 画上左心房 */
+/* Tambahkan atrium kiri */
 .heart::before {
   content: '';
   background: #E88D8D;
@@ -123,7 +123,7 @@ html{
   top: 1px;
 }
 
-/* 再画上右心房 */
+/* Tambahkan atrium kanan */
 .heart::after {
   content: '';
   background: #E88D8D;
@@ -135,7 +135,7 @@ html{
   top: -38px;
 }
 
-/* 太单调了，让心跳动起来 */
+/* Terlalu polos sih, aku bakal coba buat hati berdenyut */
 @keyframes throb {
   0% {
     transform: scale(1) rotate(45deg);
@@ -153,8 +153,8 @@ html{
   animation: throb 1s infinite linear;
 }
 /*
-* Ok，完成！
-* 宝贝，七夕快乐！
+* Ok, selesaiiiiiii!
+* Selamat valentineeeeeeee!
 */
 
 `
@@ -205,7 +205,7 @@ html{
     }
 
     saveStyleEditorRef = child => this.styleEditor = child;
-    
+
     rain = () => {
         let { heartRains } = this.state;
         const rainNum = 30;

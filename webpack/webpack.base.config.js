@@ -36,7 +36,7 @@ const base = {
   },
   module: {
     rules: [{
-      test: /\.(woff|woff2|ttf|eot|png|jpg|jpeg|gif|svg)(\?v=\d+\.\d+\.\d+)?$/i, // 图片加载
+      test: /\.(woff|woff2|ttf|eot|png|jpg|jpeg|gif|svg)(\?v=\d+\.\d+\.\d+)?$/i, // Memuat gambar
       loader: 'url-loader',
       query: {
         limit: 10000
@@ -81,9 +81,9 @@ if (isDebug) {
   base.plugins.push(new CleanWebpackPlugin(
     "*",
     {
-      root: releasePath,                      //根目录
-      verbose: true,        　　　　　　　　　　//开启在控制台输出信息
-      dry: false        　　　　　　　　　　//启用删除文件
+      root: releasePath,                      //Direktori root
+      verbose: true,        　　　　　　　　　　//Aktifkan output di konsol
+      dry: false        　　　　　　　　　　//Aktifkan penghapusan file
     }
   ))
 }
