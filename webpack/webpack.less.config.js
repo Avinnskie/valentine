@@ -1,114 +1,78 @@
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const HappyPack = require('happypack');
-const os = require('os');
-const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
-const lessHappyLoaderId = 'happypack-for-less-loader';
-const cssHappyLoaderId = 'happypack-for-css-loader';
 
 const isDebug = process.env.NODE_ENV !== 'production';
 
 const cssLoader = {
-  loader: `css-loader`,
+  loader: 'css-loader',
   options: {
     sourceMap: isDebug,
     modules: true,
     localIdentName: '[local]',
-  }
-}
+  },
+};
 
 const postcssLoader = {
   loader: 'postcss-loader',
   options: {
-    config: {
-      path: __dirname
-    }
-  }
-}
+    postcssOptions: {
+      // ini menggantikan "config: { path: __dirname }" yang sudah lama
+      // kalau kamu punya postcss.config.js di folder ini, otomatis kebaca.
+    },
+  },
+};
 
 const lessLoader = {
   loader: 'less-loader',
   options: {
     sourceMap: isDebug,
-    javascriptEnabled: true  // Mendukung JavaScript inline
-  }
-}
+    javascriptEnabled: true,
+  },
+};
 
 const lessConfig = {
   module: {
-    rules: []
+    rules: [
+      // LESS
+      {
+        test: /\.less$/,
+        use: [
+          isDebug ? 'style-loader' : MiniCssExtractPlugin.loader,
+          cssLoader,
+          postcssLoader,
+          lessLoader,
+        ],
+      },
+      // CSS
+      {
+        test: /\.css$/,
+        use: [
+          isDebug ? 'style-loader' : MiniCssExtractPlugin.loader,
+          cssLoader,
+          postcssLoader,
+        ],
+      },
+    ],
   },
-  plugins: [],
+
+  plugins: [
+    ...(isDebug
+      ? []
+      : [
+          new MiniCssExtractPlugin({
+            filename: '[name].css',
+          }),
+        ]),
+  ],
+
   optimization: {
-    minimizer: [new OptimizeCssAssetsPlugin({ // Gunakan OptimizeCssAssetsPlugin untuk kompres CSS
-      cssProcessor: require('cssnano'),   // Optimizer kompresi CSS
-      cssProcessorOptions: { discardComments: { removeAll: true } } // Hapus semua komentar
-    })]
-  }
+    minimizer: [
+      new OptimizeCssAssetsPlugin({
+        cssProcessor: require('cssnano'),
+        cssProcessorOptions: { discardComments: { removeAll: true } },
+      }),
+    ],
+  },
 };
-
-let loaders = [];
-let plugins = [];
-
-if (isDebug) {
-  loaders = [{
-    test: /\.less$/,
-    loader: 'happypack/loader',
-    query: {id: lessHappyLoaderId}
-  }, {
-    test: /\.css$/,
-    loader: 'happypack/loader',
-    query: {id: cssHappyLoaderId}
-  }]
-
-  plugins = [new HappyPack({
-    id: lessHappyLoaderId,
-    threadPool: happyThreadPool,
-    loaders: ['style-loader', cssLoader, postcssLoader, lessLoader ]
-  }),  new HappyPack({
-    id: cssHappyLoaderId,
-    threadPool: happyThreadPool,
-    loaders: ['style-loader', cssLoader, postcssLoader ]
-  })]
-
-} else {
-
-  loaders = [{
-    test: /\.less$/,
-    use: [MiniCssExtractPlugin.loader, {
-      loader: 'happypack/loader',
-      query: {id: lessHappyLoaderId}
-    }]
-  }, {
-    test: /\.css/,
-    use: [MiniCssExtractPlugin.loader, {
-      loader: 'happypack/loader',
-      query: {id: cssHappyLoaderId}
-    }]
-  }]
-
-  plugins = [new MiniCssExtractPlugin({
-    filename: '[name].css',
-    // chunkFilename: "[id].css"
-  }), new HappyPack({
-    id: lessHappyLoaderId,
-    loaders: [
-      cssLoader,
-      postcssLoader,
-      lessLoader
-    ],
-    threadPool: happyThreadPool
-  }), new HappyPack({
-    id: cssHappyLoaderId,
-    loaders: [
-      cssLoader,
-      postcssLoader
-    ],
-    threadPool: happyThreadPool
-  })]
-}
-
-lessConfig.module.rules = lessConfig.module.rules.concat(loaders);
-lessConfig.plugins = lessConfig.plugins.concat(plugins);
 
 module.exports = lessConfig;

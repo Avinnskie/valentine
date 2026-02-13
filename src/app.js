@@ -27,7 +27,7 @@ export default class App extends React.Component {
 * Sudah lama kan kamu tau tentang bidang aku
 * Aku seorang frontend engineer, biasa disebut programmer. Urusan web.
 * Seperti halaman ini, awalnya halaman kosong.
-* Jobdesk aku adalah menambahkan sesuatu ke halaman kosong seperti ini.
+* Jobdesk aku tuh kayak menambahkan sesuatu ke halaman kosong seperti ini.
 * Oh iya, kita juga perlu bedakan HP dan komputer.
 * Kamu sekarang pakai ...${isPc ? 'komputer' : 'HP'}
 */
